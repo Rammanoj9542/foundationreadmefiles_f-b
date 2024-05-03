@@ -17,46 +17,68 @@ To follow this tutorial, you'll need:
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
 
 Step 2: Add Repository
+
 sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 
 Step 3: Update & Install Jenkins
+
 sudo apt update
+
 sudo apt install jenkins
 
 Starting Jenkins
+
 sudo systemctl start jenkins.service
+
 sudo systemctl status jenkins
 
 Opening the Firewall
+
 sudo ufw allow 8080
+
 sudo ufw status
 
-Setting Up Jenkins
+##Setting Up Jenkins
 
 Step 1: Jenkins Setup
 
 Open Jenkins and navigate to "Manage Jenkins".
+
 Click on "Global Tool Configuration" and add Docker.
+
 Go to "Manage Plugins" and install necessary plugins for Docker integration.
 
 Step 2: Create a New Job Setup
+
 Open Jenkins and create a new job for the application.
+
 Select "Pipeline" as the job type and click "OK".
+
 Navigate to the Jenkins Dashboard and click on the created job to configure it.
+
 Start writing the pipeline Groovy script.
+
 After writing the script, click on "Apply" and then "Save".
+
 Once saved, navigate back to the Jenkins Dashboard and click "Build Now".
+
 You can view the progress of the build in the Stage View.
+
 Go to the build history and click on the recent build number to view details.
 
 Step 3: Clone Repository
 Navigate to the Jenkins Dashboard.
+
 Open the Jenkins pipeline job for your project.
+
 Execute the "Clone Repository" stage to fetch the latest code from the repository.
 
-Installing Docker on Ubuntu
+##Installing Docker on Ubuntu
+
 Step 1: Update & Install Dependencies
+
 sudo apt update
+
 sudo apt install docker.io
 
 Step 2: Verify Installation
