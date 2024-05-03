@@ -69,52 +69,88 @@ sudo docker run hello-world
 
 
 pipeline {
+
     agent any
+    
     stages {
+    
         stage('Clone Local Directory') {
+        
             steps {
+            
                 script {
+                
                     def sourceDir = "/home/naveen/Desktop/Projects/Application_Backend_Foundation/"
+                    
                     def destDir = "/home/naveen/.jenkins/workspace/Application_Backend_Foundation/"
+                    
                     sh "rsync -av --exclude='__pycache__/' ${sourceDir} ${destDir}"
+                    
                 }
             }
         }
         stage('Check Dockerfile') {
+        
             steps {
+            
                 script {
+                
                     def dockerfilePath = "backendend/Dockerfile"
+                    
                     if (fileExists(dockerfilePath)) {
+                    
                         echo "Dockerfile found. Proceed with the process."
+                        
                     } else {
+                    
                         echo "Dockerfile not found. Stopping the process."
+                        
                         error("Dockerfile not found.")
+                        
                     }
                 }
             }
         }
+        
          stage('Build the Docker Image') {
+         
             steps {
+            
                 script {
+                
                     dir("frontend"){
+                    
                         sh "docker build -t foundation/backend:1.1.1 ."
+                        
                         echo "Frontend image built successfully"
+                        
                     }
                 }    
             }
         }
+        
         stage('run the image'){
+        
             steps{
+            
                 script{
+                
                     sh "docker-compose up -d backendend"
+                    
                     echo"frontend image run successfully"
+                    
                 }
             }
         }
+        
         stage('docker imageslist'){
+        
             steps{
+            
                 script{
+                
                     sh 'docker images'
+                    
                 }
             }
         }
@@ -124,64 +160,110 @@ pipeline {
 ##Jenkins Pipeline Script for Foundation Frontend
 
 pipeline {
+
     agent any
+    
     stages {
+    
         stage('Clone Local Directory') {
+        
             steps {
+            
                 script {
+                
                     def sourceDir = "/home/naveen/Desktop/Projects/Application_Frontend_Foundation/"
+                    
                     def destDir = "/home/naveen/.jenkins/workspace/Application_Frontend_Foundation/"
+                    
                     sh "rsync -av --exclude='__pycache__/' ${sourceDir} ${destDir}"
+                    
                 }
             }
         }
+        
         stage('Check Dockerfile') {
+        
             steps {
+            
                 script {
+                
                     def dockerfilePath = "frontend/Dockerfile"
+                    
                     if (fileExists(dockerfilePath)) {
+                    
                         echo "Dockerfile found. Proceed with the process."
                     } else {
+                    
                         echo "Dockerfile not found. Stopping the process."
+                        
                         error("Dockerfile not found.")
+                        
                     }
                 }
             }
         }
+        
          stage('Build the Docker Image') {
+         
             steps {
+            
                 script {
+                
                     dir("frontend"){
+                    
                         sh "docker build -t foundation/frontend:1.1.1 ."
+                        
                         echo "Frontend image built successfully"
+                        
                     }
                 }    
             }
         }
+        
         stage('run the image'){
+        
             steps{
+            
                 script{
+                
                     sh "docker-compose up -d frontend"
+                    
                     echo"frontend image run successfully"
+                    
                 }
             }
         }
+        
         stage('docker imageslist'){
+        
             steps{
+            
                 script{
+                
                     sh 'docker images'
+                    
                 }
             }
         }
+        
         stage('curl test'){
+        
             steps{
+            
                 script{
+                
                     def serverUrl = 'http://172.25.1.223:3000'
+                    
                     def curlOutput = sh(script: "curl -I ${serverUrl}", returnStdout: true).trim()
+                    
                     if (curlOutput.contains('200 OK')) {
+                    
                         echo "Server at ${serverUrl} is accessible."
+                        
                     } else {
+                    
                         error "Failed to access server ."
+                        
                     }
                 }    
             }
