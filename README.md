@@ -38,7 +38,7 @@ sudo ufw allow 8080
 
 sudo ufw status
 
-###Setting Up Jenkins
+### Setting Up Jenkins
 
 Step 1: Jenkins Setup
 
@@ -73,7 +73,7 @@ Open the Jenkins pipeline job for your project.
 
 Execute the "Clone Repository" stage to fetch the latest code from the repository.
 
-###Installing Docker on Ubuntu
+### Installing Docker on Ubuntu
 
 Step 1: Update & Install Dependencies
 
@@ -87,7 +87,7 @@ docker --version
 Step 3: Pull & Run Hello-World Image
 sudo docker run hello-world
 
-###Jenkins Pipeline Script for Foundation Backend
+### Jenkins Pipeline Script for Foundation Backend
 
 
 pipeline {
@@ -179,7 +179,7 @@ pipeline {
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------
-##Jenkins Pipeline Script for Foundation Frontend
+### Jenkins Pipeline Script for Foundation Frontend
 
 pipeline {
 
