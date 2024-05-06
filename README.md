@@ -12,11 +12,19 @@ To follow this tutorial, you'll need:
 
 ## Installing Jenkins
 
-### Step 1: Add Repository Key
+Update package lists:
 
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+sudo apt update
 
-Step 2: Add Repository
+Install Java 
+
+sudo apt install openjdk-11-jdk
+
+## Step 1: Add Repository Key
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+Step 2:Add the Jenkins repository to your system:
 
 sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 
@@ -26,17 +34,30 @@ sudo apt update
 
 sudo apt install jenkins
 
-Starting Jenkins
+## Starting Jenkins
+
+now that Jenkins is installed, start it by using systemctl:
 
 sudo systemctl start jenkins.service
 
+Since systemctl doesn’t display status output, we’ll use the status command to verify that Jenkins started successfully:
+
 sudo systemctl status jenkins
 
-Opening the Firewall
+
+## Opening the Firewall
 
 sudo ufw allow 8080
 
+sudo ufw allow OpenSSH
+
+sudo ufw enable
+
 sudo ufw status
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+The next screen presents the option of installing suggested plugins or selecting specific plugins:
 
 ### Setting Up Jenkins
 
